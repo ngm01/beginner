@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Destination</title>
+</head>
+<body>
+<a href="/">Home</a>
+<a href="travels/logout">Logout</a>
+
+<h3>{{trip.destionation}}</h3>
+<table>
+	<tr>
+		<td>Planned By:</td><td>{{trip.trip_creator.name}}</td>
+	</tr>
+	<tr>
+		<td>Description:</td><td>{{trip.description}}</td>
+	</tr>
+	<tr>
+		<td>Travel Date From:</td><td>{{trip.trip_start|date:"M d, Y"}}</td>
+	</tr>
+	<tr>
+		<td>Travel Date To</td><td>{{trip.trip_end|date:"M d, Y"}}</td>
+	</tr>
+</table>
+
+<h3>Other users joining this trip in addition to me, {{user.name}}:</h3>
+<ul>
+	{%for t in trip.travelers.all%}
+	{%if t.id != request.session.logged_in and t.id != trip.trip_creator.id%}
+	<li>{{t.name}}</li>
+	{%endif%}
+	{%endfor%}
+</ul>
+</body>
+</html>
